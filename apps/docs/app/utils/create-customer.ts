@@ -2,8 +2,8 @@ import axios from 'axios';
 import base64 from 'base-64';
 
 // Define your key and secret
-const apiKey = 'rzp_test_yKtDZBgQecVeqk';
-const apiSecret = '0C6iXbkOrXcE9gZKwKpciuNl';
+const apiKey = process.env.key_id;
+const apiSecret = process.env.key_secret;
 
 // Razorpay API endpoint for creating a customer
 const url = 'https://api.razorpay.com/v1/customers';
