@@ -8,8 +8,6 @@ export default function Home() {
   };
   return (
     <div className={styles.page}>
-      <button onClick={createOrder} >Create Order</button>
-      <button onClick={createCustomer} >Create Customer</button>
     </div>
   );
 }
