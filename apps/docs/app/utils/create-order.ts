@@ -1,40 +1,24 @@
-import axios from 'axios';
-import base64 from 'base-64';
+"use server"
+import { Interface } from 'readline';
+import Razorpay from './razorpay';
 
-// Define your key and secret
-const apiKey = process.env.key_id;
-const apiSecret = process.env.key_secret;
+const razorpay = new Razorpay(process.env.key_id||"", process.env.key_secret||"");
 
-// Razorpay API endpoint for creating a customer
-const url = 'https://api.razorpay.com/v1/orders';
-
-// order data
-const orderData ={
-    amount: 50000,
-    currency: "INR",
-    receipt: "receipt#1",
-    notes: {
-      key1: "value3",
-      key2: "value2"
-    }
-  };
-
-// Encode the API key and secret in base64
-const authHeader = 'Basic ' + base64.encode(`${apiKey}:${apiSecret}`);
-
-// Send the POST request with Basic Authentication
-export const createOrder=()=>{
-    // console.log("Order created successfully:", orderData);
-    axios.post(url, orderData, {
-        headers: {
-          'Authorization': authHeader,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(response => {
-        console.log("Order created successfully:", response.data);
-      })
-      .catch(error => {
-        console.error("Failed to create customer:", error.response);
-      });
+interface Order{
+  amount: Number;
+  currency: string;
+  receipt: string;
 }
+const orderData = {
+  amount: 50000,
+  currency: "INR",
+  receipt: "receipt#1",
+  notes: {
+    key1: "value3",
+    key2: "value2"
+  }
+};
+
+export const createOrder = (orderData:Order) => {
+  return razorpay.createOrder(orderData);
+};
