@@ -1,4 +1,3 @@
-"use server"
 import { Interface } from 'readline';
 import Razorpay from './razorpay';
 
