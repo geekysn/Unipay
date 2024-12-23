@@ -1,11 +1,8 @@
 "use client";
-import { createCustomer } from "./utils/create-customer";
-import { createOrder } from "./utils/create-order";
-import { getCustomers } from "./utils/get-customers";
 import { createStandardLink } from "./utils/create-payment-link";
-import { createQRCode } from "./utils/create-qr";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const [customer, setCustomer] = useState({
@@ -16,6 +13,7 @@ export default function Home() {
   const [amount, setAmount] = useState(0);
   const [paymentLink, setPaymentLink] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   const handleCreatePaymentLink = async () => {
     try {
@@ -27,7 +25,12 @@ export default function Home() {
     }
   };
 
+  const handleSubmit = ()=>{
+    router.push('/stripe')
+  }
+
   return (
+    <div>
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
       <h1 className="text-4xl font-bold mb-8">Razorpay Integration</h1>
       <div className="flex flex-col gap-4">
@@ -86,3 +89,10 @@ export default function Home() {
           </div>
         </div>
       )}
+    </div>
+      <div>
+        <button className="bg-black text-white p-4" onClick={handleSubmit}>Pay with stripe</button>
+      </div>
+    </div>
+  );
+}
